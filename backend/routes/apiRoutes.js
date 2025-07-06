@@ -4,6 +4,8 @@ const path = require("path");
 const fs = require("fs");
 const router = express.Router();
 
+console.log("[API ROUTES] Module loaded successfully");
+
 // Add logging middleware for debugging
 router.use((req, res, next) => {
   console.log(
@@ -66,7 +68,7 @@ router.get("/validate", async (req, res) => {
       const genAI = new (require("@google/generative-ai").GoogleGenerativeAI)(
         process.env.GEMINI_API_KEY
       );
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       await model.generateContent("Hello");
       validation.apis.geminiKeyValid = "valid";
     } else {
@@ -113,5 +115,9 @@ if (process.env.NODE_ENV === "development") {
     }
   });
 }
+
+console.log(
+  "[API ROUTES] All routes registered: POST /query, GET /schemes, GET /health, GET /validate"
+);
 
 module.exports = router;
