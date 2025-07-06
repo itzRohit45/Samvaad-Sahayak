@@ -4,6 +4,14 @@ const path = require("path");
 const fs = require("fs");
 const router = express.Router();
 
+// Add logging middleware for debugging
+router.use((req, res, next) => {
+  console.log(
+    `[API ROUTES] ${req.method} ${req.path} - ${new Date().toISOString()}`
+  );
+  next();
+});
+
 // Process query route
 router.post("/query", apiController.processQuery);
 
@@ -12,6 +20,7 @@ router.get("/schemes", apiController.getSchemes);
 
 // Health check route
 router.get("/health", (req, res) => {
+  console.log("[API ROUTES] Health check endpoint hit");
   res.json({
     status: "ok",
     message: "API routes are working",
@@ -69,5 +78,40 @@ router.get("/validate", async (req, res) => {
 
   res.json(validation);
 });
+
+// Debug endpoint for development
+if (process.env.NODE_ENV === "development") {
+  router.get("/debug/search", async (req, res) => {
+    try {
+      const { query } = req.query;
+
+      if (!query) {
+        return res.status(400).json({ error: "Query parameter is required" });
+      }
+
+      const { searchSchemeKnowledgeBase } = require("../services/ragService");
+      const results = await searchSchemeKnowledgeBase(query);
+
+      res.json({
+        query,
+        resultCount: results ? results.length : 0,
+        results: results
+          ? results.map((item) => ({
+              id: item.id,
+              name: item.name,
+              category: item.category,
+              hasContent: !!item.content,
+              contentPreview: item.content
+                ? item.content.substring(0, 100) + "..."
+                : "No content",
+            }))
+          : [],
+      });
+    } catch (error) {
+      console.error("Debug search error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+}
 
 module.exports = router;

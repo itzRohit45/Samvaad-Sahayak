@@ -39,6 +39,7 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 
 // Routes - Using centralized route handler
+console.log("[SERVER] Setting up API routes at /api");
 app.use("/api", apiRoutes);
 
 // Health check endpoints
@@ -50,55 +51,35 @@ app.get("/health", (req, res) => {
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
+  console.log("[SERVER] Setting up static file serving for production");
   // Set static folder
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
+  // Catch-all handler: send back React's index.html file for any non-API routes
   app.get("*", (req, res) => {
+    console.log(`[SERVER] Serving React app for route: ${req.path}`);
     res.sendFile(path.resolve(__dirname, "../frontend", "build", "index.html"));
-  });
-}
-
-// Debug endpoint for development
-if (process.env.NODE_ENV === "development") {
-  app.get("/api/debug/search", async (req, res) => {
-    try {
-      const { query } = req.query;
-
-      if (!query) {
-        return res.status(400).json({ error: "Query parameter is required" });
-      }
-
-      const { searchSchemeKnowledgeBase } = require("./services/ragService");
-      const results = await searchSchemeKnowledgeBase(query);
-
-      res.json({
-        query,
-        resultCount: results ? results.length : 0,
-        results: results
-          ? results.map((item) => ({
-              id: item.id,
-              name: item.name,
-              category: item.category,
-              hasContent: !!item.content,
-              contentPreview: item.content
-                ? item.content.substring(0, 100) + "..."
-                : "No content",
-            }))
-          : [],
-      });
-    } catch (error) {
-      console.error("Debug search error:", error);
-      res.status(500).json({ error: error.message });
-    }
   });
 }
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error(`[SERVER] Error on ${req.method} ${req.path}:`, err.stack);
   res.status(500).json({
     error: "Something went wrong!",
     message: process.env.NODE_ENV === "development" ? err.message : undefined,
+  });
+});
+
+// 404 handler for unmatched routes
+app.use("*", (req, res) => {
+  console.log(
+    `[SERVER] 404 - Route not found: ${req.method} ${req.originalUrl}`
+  );
+  res.status(404).json({
+    error: "Route not found",
+    path: req.originalUrl,
+    method: req.method,
   });
 });
 
