@@ -1,10 +1,6 @@
 # Samvaad Sahayak (संवाद सहायक) 
 *Your AI-Powered Government Scheme Navigator*
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![React](https://img.shields.io/badge/React-18+-blue.svg)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
-[![Progressive Web App](https://img.shields.io/badge/PWA-enabled-purple.svg)](https://web.dev/progressive-web-apps/)
 
 ## 🎯 Problem Statement
 
@@ -129,12 +125,6 @@ Enabling natural voice interactions in native languages, making the platform acc
   - Browser-independent functionality
   - Automatic updates without app store
 
-### 🔒 **Privacy & Security**
-- **Data Protection**: No personal data stored on servers
-- **Local Storage**: User preferences stored locally
-- **HTTPS Encryption**: End-to-end encrypted communications
-- **Privacy First**: No tracking or analytics without consent
-
 ## � Use Cases & Real-World Applications
 
 ### 👥 **Target Beneficiaries**
@@ -209,14 +199,6 @@ Samvaad Sahayak provides:
 ✅ Tax benefits and financial assistance options
 ```
 
-## 🏗️ Technical Architecture
-
-### 🎯 **System Design Philosophy**
-- **Microservices Architecture**: Modular, scalable backend services
-- **API-First Design**: RESTful APIs for future mobile app integration
-- **Progressive Enhancement**: Works on any device, enhanced on modern browsers
-- **Offline-First**: Functional without internet connectivity
-- **Accessibility-First**: Built for users with diverse abilities
 
 ### 🔄 **Data Flow Architecture**
 ```
@@ -266,25 +248,6 @@ Voice/Text → Auto-detection → Gemini AI → Scheme DB → Formatted Response
 - **Context Management**: Conversation state and memory management
 - **Semantic Search**: Vector-based scheme matching and retrieval
 
-### 🗃️ **Data & Storage**
-- **JSON Database**: Structured scheme data with metadata
-- **Browser Storage**: Local storage for user preferences and offline data
-- **Caching Strategy**: Multi-layer caching for optimal performance
-- **Vector Embeddings**: Semantic search capabilities for better matching
-
-### 🌐 **Progressive Web App Stack**
-- **Service Worker**: Background sync and caching strategies
-- **Web App Manifest**: Native app-like installation
-- **Push Notifications**: Real-time updates and notifications
-- **Offline Strategies**: Cache-first, network-first hybrid approaches
-
-### 🔧 **Development & DevOps**
-- **ES6+ JavaScript**: Modern JavaScript features and async/await
-- **NPM Ecosystem**: Curated package selection for reliability
-- **Environment Configuration**: Flexible environment variable management
-- **Code Quality**: ESLint, Prettier for consistent code style
-
-## 🚀 Quick Start Guide
 
 ### 📋 **Prerequisites**
 - **Node.js** v16+ ([Download](https://nodejs.org/))
@@ -356,23 +319,6 @@ npm start
 4. **AI Response**: Type a question about government schemes
 5. **Language Switch**: Test switching between Hindi, English, Tamil, Telugu, Bengali
 
-### 🔧 **Development Tools**
-```bash
-# Run tests
-npm run test
-
-# Check code quality
-npm run lint
-
-# Format code
-npm run format
-
-# Build for production
-npm run build
-
-# Deploy to staging
-npm run deploy:staging
-```
 
 ## � Multi-Language Support Matrix
 
@@ -385,195 +331,7 @@ npm run deploy:staging
 | **Scheme Database** | ✅ 950+ Schemes | ✅ 950+ Schemes | ✅ 950+ Schemes | ✅ 950+ Schemes | ✅ 950+ Schemes |
 | **Eligibility Checker** | ✅ Full Support | ✅ Full Support | ✅ Full Support | ✅ Full Support | ✅ Full Support |
 | **Voice Navigation** | ✅ Complete | ✅ Complete | ✅ Complete | ✅ Complete | ✅ Complete |
-| **Offline Support** | ✅ Available | ✅ Available | ✅ Available | ✅ Available | ✅ Available |
 
-### � **Language-Specific Features**
-- **Cultural Context**: Responses adapted to regional cultural nuances
-- **Regional Schemes**: State-specific schemes highlighted by language
-- **Local Examples**: Location-relevant examples and case studies
-- **Accent Support**: Multiple accent variations within each language
-- **Fallback Mechanism**: Graceful degradation to English when needed
-
-## 🎨 Core Application Components
-
-### 🏠 **Main Chat Interface (`ChatArea.js`)**
-The heart of user interaction featuring:
-- **Intelligent Message Rendering**: Dynamic markdown-to-React conversion
-- **Real-time Typing Indicators**: Visual feedback during AI processing  
-- **Voice Integration**: Seamless voice input/output controls
-- **Message Actions**: Save, replay, and share functionality
-- **Conversation Memory**: Context-aware multi-turn conversations
-- **Auto-scroll & Navigation**: Smart scrolling with manual override
-
-### � **Voice Interface (`InputArea.js`)**
-Advanced voice interaction capabilities:
-- **Smart Audio Detection**: Automatic silence detection and submission
-- **Visual Feedback**: Real-time audio level visualization
-- **Language Switching**: Voice input in any supported language
-- **Error Handling**: Graceful fallback to text input
-- **Accessibility**: Keyboard shortcuts and screen reader support
-
-### ✅ **Eligibility Checker (`EligibilityChecker.js`)**
-Intelligent scheme matching system:
-- **Interactive Assessment**: Step-by-step questionnaire
-- **Real-time Validation**: Instant eligibility calculation
-- **Multi-criteria Matching**: Age, income, location, occupation filtering
-- **Confidence Scoring**: Probability-based recommendations
-- **Export Results**: Save and share eligibility reports
-
-### 🗂️ **Scheme Navigation (`SchemeNavigation.js`)**
-Comprehensive scheme discovery:
-- **Category Browsing**: Organized by sector and beneficiary type
-- **Advanced Filters**: Multiple filter combinations
-- **Search Functionality**: Full-text search across scheme database
-- **Detailed Views**: Complete scheme information with application guides
-- **Bookmark System**: Save favorite schemes for later
-
-### 🌐 **Language System (`LanguageContext.js`)**
-Robust internationalization framework:
-- **Context Management**: Global language state management
-- **Dynamic Loading**: On-demand translation loading
-- **Fallback Strategy**: Multiple fallback levels for missing translations
-- **Performance Optimization**: Cached translations and lazy loading
-
-## 📱 Progressive Web App Features
-
-### 🔄 **Offline Capabilities**
-- **Service Worker**: Caches resources for offline access
-- **Background Sync**: Queues requests when offline
-- **Cache Management**: Intelligent caching of API responses and assets
-- **Offline Indicators**: Clear visual feedback for connection status
-
-### 📥 **Installation**
-- **Add to Home Screen**: Install as native app on mobile devices
-- **Desktop Installation**: PWA installation on Windows, Mac, and Linux
-- **App-like Experience**: Full-screen mode with native navigation
-- **Automatic Updates**: Seamless app updates without app store
-
-### 🔔 **Enhanced Features**
-- **Push Notifications**: Updates about new schemes and features (optional)
-- **Background Processing**: Continue conversations while multitasking
-- **Local Data Storage**: Secure, encrypted local storage for user preferences
-- **Cross-Device Sync**: Sync preferences across devices (when online)
-
-## 🎨 UI/UX Improvements
-
-### 🌟 **Modern Design System**
-- **Consistent Typography**: Carefully selected fonts for multi-language support
-- **Color Palette**: Accessible colors with proper contrast ratios
-- **Spacing System**: Harmonious spacing using 8px grid system
-- **Component Library**: Reusable, themed components throughout the app
-
-### 📱 **Responsive Design**
-- **Mobile-First**: Optimized for mobile devices with touch-friendly controls
-- **Tablet Support**: Enhanced layouts for tablet-sized screens
-- **Desktop Experience**: Full-featured desktop interface with keyboard shortcuts
-- **Print Friendly**: Optimized styles for printing conversations and schemes
-
-### ♿ **Accessibility Features**
-- **Screen Reader Support**: Full ARIA labels and semantic HTML
-- **Keyboard Navigation**: Complete keyboard accessibility
-- **High Contrast**: Support for high contrast mode
-- **Font Scaling**: Respects user font size preferences
-
-## � Detailed Project Structure
-
-```
-samvaad-sahayak/
-├── 📄 README.md                    # Comprehensive documentation
-├── 📄 LICENSE                      # MIT License
-├── 📄 package.json                 # Root package configuration
-│
-├── 🎨 frontend/                    # React Application
-│   ├── 📁 public/
-│   │   ├── 📄 index.html          # Main HTML template
-│   │   ├── 📄 manifest.json       # PWA manifest configuration
-│   │   ├── 🖼️ icon-192.png        # PWA icons (various sizes)
-│   │   └── 🖼️ icon-512.png
-│   │
-│   ├── 📁 src/
-│   │   ├── 📁 components/          # React UI Components
-│   │   │   ├── 💬 ChatArea.js      # Main chat interface with message rendering
-│   │   │   ├── 🎨 ChatArea.css     # Chat interface styling
-│   │   │   ├── 🏠 Header.js        # App header with branding & language selector
-│   │   │   ├── 🎨 Header.css       # Header component styling
-│   │   │   ├── 🎤 InputArea.js     # Voice/text input with smart recognition
-│   │   │   ├── 🎨 InputArea.css    # Input area styling
-│   │   │   ├── ✅ EligibilityChecker.js  # Interactive scheme eligibility tool
-│   │   │   ├── 🎨 EligibilityChecker.css # Eligibility checker styling
-│   │   │   ├── 🗂️ SchemeNavigation.js    # Scheme browsing and filtering
-│   │   │   ├── 🎨 SchemeNavigation.css   # Scheme navigation styling
-│   │   │   ├── 🌐 LanguageSelector.js    # Language switching component
-│   │   │   ├── 🎨 LanguageSelector.css   # Language selector styling
-│   │   │   ├── 🤖 YojanaBuddy.js         # AI assistant character
-│   │   │   └── 🎨 YojanaBuddy.css        # AI buddy styling
-│   │   │
-│   │   ├── 📁 contexts/            # React Context Providers
-│   │   │   └── 🌐 LanguageContext.js     # Global language state management
-│   │   │
-│   │   ├── 📁 services/            # API & External Service Integration
-│   │   │   ├── 🔗 api.js           # Backend API communication
-│   │   │   ├── 🎤 speechServices.js      # Speech recognition & synthesis
-│   │   │   └── 🌐 translationService.js  # Translation utilities
-│   │   │
-│   │   ├── 📄 App.js               # Main application component
-│   │   ├── 🎨 App.css              # Global application styling
-│   │   ├── 📄 index.js             # React app entry point
-│   │   ├── 🎨 index.css            # Global CSS variables & base styles
-│   │   ├── 🔧 service-worker.js    # PWA service worker for offline support
-│   │   └── 📄 serviceWorkerRegistration.js # Service worker registration
-│   │
-│   └── 📄 package.json             # Frontend dependencies & scripts
-│
-├── 🖥️ backend/                     # Node.js Server
-│   ├── 📁 controllers/             # Request Handlers
-│   │   └── 🎯 apiController.js     # Main API request processing
-│   │
-│   ├── 📁 services/                # Business Logic Services
-│   │   ├── 🤖 aiService.js         # Google Gemini AI integration
-│   │   ├── 🔍 queryProcessor.js    # Query processing & language handling
-│   │   ├── 📚 ragService.js        # Retrieval-Augmented Generation
-│   │   ├── 🏛️ schemeService.js     # Government scheme data management
-│   │   └── 🎤 speechService.js     # Server-side speech processing
-│   │
-│   ├── 📁 routes/                  # API Route Definitions
-│   │   └── 🛣️ apiRoutes.js         # RESTful API endpoints
-│   │
-│   ├── 📁 data/                    # Data Storage
-│   │   └── 🗄️ schemes.json         # Government schemes database (950+ schemes)
-│   │
-│   ├── 📄 server.js                # Express server configuration & startup
-│   ├── 📄 package.json             # Backend dependencies & scripts
-│   └── 🔧 install.bat              # Windows installation script
-│
-└── 📁 docs/                        # Documentation (Optional)
-    ├── 📄 API.md                   # API documentation
-    ├── 📄 DEPLOYMENT.md            # Deployment guide
-    └── 📄 CONTRIBUTING.md          # Contribution guidelines
-```
-
-### 🔍 **Key File Descriptions**
-
-#### 🎨 **Frontend Core Files**
-- **`App.js`**: Main application orchestrator managing state, routing, and component integration
-- **`ChatArea.js`**: Sophisticated chat interface with markdown rendering and voice integration
-- **`InputArea.js`**: Advanced input component with voice recognition and smart submission
-- **`LanguageContext.js`**: Centralized language management with fallback mechanisms
-
-#### 🖥️ **Backend Core Files**  
-- **`server.js`**: Express server setup with middleware, CORS, and error handling
-- **`queryProcessor.js`**: Intelligent query processing with multi-language support
-- **`aiService.js`**: Google Gemini AI integration with context management
-- **`schemes.json`**: Comprehensive database of 950+ government schemes with metadata
-
-#### 📱 **PWA Files**
-- **`service-worker.js`**: Offline caching, background sync, and push notifications
-- **`manifest.json`**: PWA configuration for installation and native app behavior
-
-#### 🌐 **Multi-language Files**
-- **`LanguageContext.js`**: Global language state with dynamic translation loading
-- **`translationService.js`**: Translation utilities with fallback mechanisms
-- **Language-specific components**: All major components support multi-language rendering
 
 ## � Performance Metrics & Analytics
 
