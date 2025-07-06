@@ -1,24 +1,35 @@
-const { processQuery } = require('../services/aiService');
-const fs = require('fs').promises;
-const path = require('path');
+const { processQuery } = require("../services/queryProcessor");
+const { getSchemes } = require("../services/schemeService");
 
 /**
  * Process user query and return AI response
  */
 exports.processQuery = async (req, res) => {
   try {
-    const { query } = req.body;
-    
-    if (!query) {
-      return res.status(400).json({ error: 'Query text is required' });
+    const { query, language } = req.body;
+
+    if (!query || typeof query !== "string") {
+      return res.status(400).json({
+        error: "Invalid query format. Please provide a valid text query.",
+      });
     }
-    
-    const response = await processQuery(query);
-    
-    res.json(response);
+
+    console.log(
+      `Processing query: "${query}" in language: ${language || "hindi"}`
+    );
+
+    // Process the query with language support
+    const result = await processQuery(query, language);
+    res.json(result);
   } catch (error) {
-    console.error('Controller error:', error);
-    res.status(500).json({ error: 'Failed to process query' });
+    console.error("Error in query processing:", error);
+    // Return a friendlier error to the client
+    res.status(500).json({
+      error:
+        "Unable to process your query at this time. Please try again later.",
+      details:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
+    });
   }
 };
 
@@ -27,21 +38,14 @@ exports.processQuery = async (req, res) => {
  */
 exports.getSchemes = async (req, res) => {
   try {
-    const { category } = req.query;
-    
-    // Read schemes data
-    const schemeDataPath = path.join(__dirname, '../data/schemes.json');
-    const data = await fs.readFile(schemeDataPath, 'utf8');
-    let schemes = JSON.parse(data);
-    
-    // Filter by category if provided
-    if (category) {
-      schemes = schemes.filter(scheme => scheme.category === category);
-    }
-    
+    const { filter } = req.query;
+    const schemes = await getSchemes(filter);
     res.json(schemes);
   } catch (error) {
-    console.error('Controller error:', error);
-    res.status(500).json({ error: 'Failed to get schemes' });
+    console.error("Error fetching schemes:", error);
+    res.status(500).json({
+      error: "Failed to fetch schemes",
+      message: error.message,
+    });
   }
 };

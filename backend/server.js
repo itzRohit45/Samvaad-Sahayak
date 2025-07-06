@@ -38,50 +38,8 @@ app.use(
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
-// API endpoint to process user queries
-app.post("/api/query", async (req, res) => {
-  try {
-    const { query, language } = req.body;
-
-    if (!query || typeof query !== "string") {
-      return res.status(400).json({
-        error: "Invalid query format. Please provide a valid text query.",
-      });
-    }
-
-    console.log(
-      `Processing query: "${query}" in language: ${language || "hindi"}`
-    );
-
-    // Process the query with language support
-    const result = await processQuery(query, language);
-    res.json(result);
-  } catch (error) {
-    console.error("Error in query processing:", error);
-    // Return a friendlier error to the client
-    res.status(500).json({
-      error:
-        "Unable to process your query at this time. Please try again later.",
-      details:
-        process.env.NODE_ENV === "development" ? error.message : undefined,
-    });
-  }
-});
-
-// API endpoint to get schemes
-app.get("/api/schemes", async (req, res) => {
-  try {
-    const { filter } = req.query;
-    const schemes = await getSchemes(filter);
-    res.json(schemes);
-  } catch (error) {
-    console.error("Error fetching schemes:", error);
-    res.status(500).json({
-      error: "Failed to fetch schemes",
-      message: error.message,
-    });
-  }
-});
+// Routes - Using centralized route handler
+app.use("/api", apiRoutes);
 
 // Add the validation endpoint
 app.get("/api/validate", async (req, res) => {
@@ -134,12 +92,18 @@ app.get("/api/validate", async (req, res) => {
   res.json(validation);
 });
 
-// Routes
-app.use("/api", apiRoutes);
-
-// Health check endpoint
+// Health check endpoints
 app.get("/health", (req, res) => {
   res.json({ status: "ok", environment: process.env.NODE_ENV });
+});
+
+// API health endpoint (for frontend compatibility)
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    environment: process.env.NODE_ENV,
+    message: "Backend is running properly",
+  });
 });
 
 // Serve static assets in production
