@@ -49,17 +49,64 @@ app.get("/health", (req, res) => {
 
 // API health endpoint is handled by apiRoutes.js
 
+// Root route for API status
+app.get("/", (req, res) => {
+  console.log("[SERVER] Root route accessed");
+  res.json({
+    name: "Samvaad Sahayak API",
+    status: "running",
+    version: "1.0.0",
+    endpoints: {
+      health: "/api/health",
+      schemes: "/api/schemes",
+      query: "/api/query",
+      validate: "/api/validate",
+    },
+    documentation: "API for Indian Government Schemes Assistant",
+  });
+});
+
+// Handle HEAD requests for health checks
+app.head("/", (req, res) => {
+  console.log("[SERVER] HEAD request to root route");
+  res.status(200).end();
+});
+
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
   console.log("[SERVER] Setting up static file serving for production");
-  // Set static folder
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-  // Catch-all handler: send back React's index.html file for any non-API routes
-  app.get("*", (req, res) => {
-    console.log(`[SERVER] Serving React app for route: ${req.path}`);
-    res.sendFile(path.resolve(__dirname, "../frontend", "build", "index.html"));
-  });
+  const frontendBuildPath = path.join(__dirname, "../frontend/build");
+
+  // Check if frontend build exists
+  if (fs.existsSync(frontendBuildPath)) {
+    console.log("[SERVER] Frontend build found, serving static files");
+    app.use(express.static(frontendBuildPath));
+
+    // Catch-all handler: send back React's index.html file for any non-API routes
+    app.get("*", (req, res) => {
+      console.log(`[SERVER] Serving React app for route: ${req.path}`);
+      res.sendFile(path.resolve(frontendBuildPath, "index.html"));
+    });
+  } else {
+    console.log("[SERVER] Frontend build not found, serving API-only mode");
+    // For API-only deployment, handle unmatched routes with helpful message
+    app.get("*", (req, res) => {
+      console.log(`[SERVER] API-only mode, route not found: ${req.path}`);
+      res.status(404).json({
+        error: "Route not found",
+        message:
+          "This is an API-only deployment. Frontend is deployed separately.",
+        availableEndpoints: [
+          "/api/health",
+          "/api/schemes",
+          "/api/query",
+          "/api/validate",
+        ],
+        path: req.path,
+      });
+    });
+  }
 }
 
 // Error handling middleware
@@ -68,18 +115,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({
     error: "Something went wrong!",
     message: process.env.NODE_ENV === "development" ? err.message : undefined,
-  });
-});
-
-// 404 handler for unmatched routes
-app.use("*", (req, res) => {
-  console.log(
-    `[SERVER] 404 - Route not found: ${req.method} ${req.originalUrl}`
-  );
-  res.status(404).json({
-    error: "Route not found",
-    path: req.originalUrl,
-    method: req.method,
   });
 });
 
